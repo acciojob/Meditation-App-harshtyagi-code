@@ -1,66 +1,53 @@
-const app = document.getElementById('app');
-const videoPlayer = document.getElementById('videoPlayer');
-const audioPlayer = document.getElementById('audioPlayer');
-const soundPicker = document.querySelector('.sound-picker');
-const timeButtons = document.querySelectorAll('.time-select button');
-const timeDisplay = document.querySelector('.time-display');
-const playPauseBtn = document.getElementById('playPauseBtn');
+document.addEventListener("DOMContentLoaded", function () {
+	const sound1 = document.getElementById("sound1");
+	const sound2 = document.getElementById("sound2");
+	const app = document.getElementById("app");
+	const playButton = document.querySelector(".circle .play");
 
-let selectedSound = 'Sounds/beach.mp3';
-let selectedVideo = 'Videos/beach.mp4';
+	const music = document.getElementById("meditationAudio");
+	const video = document.getElementById("meditationVideo");
 
-function switchSound(event) {
-  const soundButtons = soundPicker.querySelectorAll('button');
-  soundButtons.forEach(button => button.classList.remove('selected'));
-  event.target.classList.add('selected');
+	let currentMusic;
+	let currentVideo;
 
-  if (event.target.id === 'sound1') {
-    selectedSound = 'Sounds/beach.mp3';
-    selectedVideo = 'Videos/beach.mp4';
-  } else if (event.target.id === 'sound2') {
-    selectedSound = 'Sounds/rain.mp3';
-    selectedVideo = 'Videos/rain.mp4';
-  }
+	sound1.addEventListener("click", function () {
 
-  audioPlayer.src = selectedSound;
-  videoPlayer.src = selectedVideo;
-}
+		if(currentMusic) currentMusic.pause();
+		if(currentVideo) currentVideo.pause();
 
-function switchTime(event) {
-  timeButtons.forEach(button => button.classList.remove('active'));
-  event.target.classList.add('active');
+		currentMusic = music;
+		currentVideo = video;
+		currentMusic.src= "C:\\Users\\user\\Downloads\\mixkit-sea-waves-with-birds-loop-1185.wav";
+		currentVideo.src= "C:\\Users\\user\\Downloads\\stock-footage-phuket-thailand-tropical-beach-aerial-drone-top-down-view-bird-eye-view-of-sea-blue-waves-break-on.mp4";
 
-  const time = event.target.innerText.split(' ')[0];
-  const minutes = parseInt(time);
-  const seconds = minutes * 60;
-  setTimeDisplay(seconds);
-}
+		currentMusic.play();
+		currentVideo.play();
+	});
 
-function setTimeDisplay(totalSeconds) {
-  const minutes = Math.floor(totalSeconds / 60);
-  const seconds = totalSeconds % 60;
-  timeDisplay.innerText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-}
+	sound2.addEventListener("click", function () {
 
-function playPause() {
-  if (audioPlayer.paused) {
-    audioPlayer.play();
-    videoPlayer.play();
-    playPauseBtn.classList.remove('play');
-    playPauseBtn.classList.add('pause');
-    playPauseBtn.innerText = 'Pause';
-  } else {
-    audioPlayer.pause();
-    videoPlayer.pause();
-    playPauseBtn.classList.remove('pause');
-    playPauseBtn.classList.add('play');
-    playPauseBtn.innerText = 'Play';
-  }
-}
+		if(currentMusic) currentMusic.pause();
+		if(currentVideo) currentVideo.pause();
 
-soundPicker.addEventListener('click', switchSound);
-timeButtons.forEach(button => button.addEventListener('click', switchTime));
-playPauseBtn.addEventListener('click', playPause);
+		currentMusic = music;
+		currentMusic = video;
 
-  
+		currentMusic.src = "C:\\Users\\user\\Downloads\\LVBN9P3-sunrise-birds.mp3";
+		currentVideo.src = "C:\\Users\\user\\Downloads\\stock-footage--k-loop-rain-drops-falling-alpha-real-rain-high-quality-slow-rain-thunder-speedy-night.webm";
+
+		currentMusic.play();
+		currentVideo.play();
+		
+	});
+
+	playButton.addEventListener("click", function () {
+            if (currentVideo.paused && currentMusic.paused) {
+                currentVideo.play();
+				currentMusic.play();
+            } else {
+                currentVideo.pause();
+				currentMusic.pause();
+            }
+    });
+})
 
